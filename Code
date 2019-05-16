@@ -1,0 +1,48 @@
+# I use SSE (sum of square of error) and Silhouette Coefficient to 
+# choose which k is the best 
+
+#import packages
+import numpy as np  
+import matplotlib.pyplot as plt  
+from sklearn.cluster import KMeans    
+import pandas as pd
+import matplotlib as mpl
+from sklearn import metrics    
+
+# read file
+path = '......'
+df = pd.read_csv(path, header=None)
+
+# named input variables as x
+x = df[[1,2,3...]]
+x = np.array(x)
+
+# 
+n_clusters = [2,3,4,5,6,7]
+SSE=[]
+silhouette=[]
+for k in n_clusters:
+    clf=KMeans(n_clusters=k)
+    clf.fit(x)
+    SSE.append(clf.inertia_)
+    silhouette.append(metrics.silhouette_score(x,clf.labels_,metric='euclidean')) 
+    
+# plot SSE and Silhouette
+#SSE 
+plt.subplot(121)
+plt.plot(n_clusters,SSE,'rx-')
+plt.xlabel('k')
+plt.ylabel('mean distortion')
+plt.title('K-Means SSE')
+#Silhouette
+plt.subplot(122)
+plt.plot(n_clusters,silhouette,'bx-')
+plt.ylabel('silhouette_score')
+plt.xlabel('k')
+plt.title('K-Means silhouette_score')
+
+plt.show()
+
+# for SSE, we like to see lower SSE
+# for Silhouette, we like to see higher Silhouette
+# We could choose the best k by combining those two index
